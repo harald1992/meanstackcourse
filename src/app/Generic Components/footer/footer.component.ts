@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import environment from '../../../environment/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +12,7 @@ export class FooterComponent {
 
   getAppData() {
     this.httpClient
-      .get(environment.baseUrl + environment.baseUrl)
+      .get(environment.appData)
       .subscribe((data) => console.log(data));
   }
 }

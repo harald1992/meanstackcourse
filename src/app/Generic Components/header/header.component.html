@@ -1,0 +1,14 @@
+<div class="header">
+  <a routerLink="">Home</a>
+  <a routerLink="posts">Posts</a>
+
+  <button (click)="openModal2()">Open Component Modal</button>
+
+  <button (click)="openModal3(modalTemplate)">
+    Open Modal Using Templates
+  </button>
+</div>
+
+<ng-template #modalTemplate>
+  <p>This is our modal content</p>
+</ng-template>

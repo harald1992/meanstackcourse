@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './pages/posts/post-create/post-create.component';
-import { CardComponent } from './Generic Components/card/card.component';
-import { PostsComponent } from './pages/posts/posts.component';
-import { FormsModule } from '@angular/forms';
-import { FooterComponent } from './Generic Components/footer/footer.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { AppSharedModule } from './modules/shared/app-shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PostCreateComponent,
-    CardComponent,
-    PostsComponent,
-    FooterComponent,
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, AppSharedModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

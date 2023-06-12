@@ -1,0 +1,13 @@
+<app-post-create></app-post-create>
+
+<hr />
+
+<ng-container *ngFor="let post of posts$ | async">
+  <app-card [card]="post" (click)="navigateToDetail(post.id)"></app-card>
+  <hr />
+</ng-container>
+<p *ngIf="$any(posts$ | async).length <= 0">No Posts Added</p>
+<!-- <p *ngIf="posts.length <= 0">No Posts Added</p> -->
+
+<p>{{ posts$ | async | json }}</p>
+<app-directive-tester></app-directive-tester>

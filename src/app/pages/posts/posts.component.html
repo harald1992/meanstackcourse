@@ -1,9 +1,0 @@
-<app-post-create></app-post-create>
-
-<hr />
-
-<ng-container *ngFor="let post of posts$ | async">
-  <app-card [card]="post"></app-card>
-  <hr />
-</ng-container>
-<p *ngIf="$any(posts$ | async).length <= 0">No Posts Added</p>
