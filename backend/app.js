@@ -3,10 +3,14 @@ import express from "express"; // you can use import statements because type="mo
 import { cwd } from "process";
 import fs from "fs";
 import bodyParser from "body-parser";
+import { randomUUID } from "crypto";
+
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(bodyParser.json()); // parse incoming json data. if Content-Type = application/json
+app.use(cookieParser());
 
 // middleware
 app.use((req, res, next) => {
@@ -36,11 +40,31 @@ app.get("/api/appdata", (req, res) => {
 app.post("/api/login", (req, res) => {
   const body = req.body;
 
-  if (body.username === "harry" && body.password === "lala") {
-    res.send("Access Authorized");
-  } else {
-    res.status(401).send("Bad Request");
-  }
+  // if (body.email === "harry" && body.password === "lala") {
+  res.setHeader("Set-Cookie", ["type=ninja", "language=javascript"]);
+
+  let options = {
+    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+    httpOnly: false, // The cookie only accessible by the web server
+  };
+
+  res.cookie("cookieName", "cookieValue", options); // options is optional
+
+  res.status(200).send({ message: "Access Authorized" });
+  // } else {
+  // res.status(401).send("Bad Request");
+  // }
+});
+
+app.post("/api/signup", (req, res) => {
+  const body = req.body;
+  // todo: save body to database
+
+  // if (body.email === "harry" && body.password === "lala") {
+  res.status(200).send({ message: "Signup Successfull" });
+  // } else {
+  // res.status(401).send("Bad Request");
+  // }
 });
 
 app.get("/api/posts", (req, res) => {

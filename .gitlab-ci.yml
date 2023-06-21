@@ -1,0 +1,10 @@
+image: node:lts-alpine3.18
+
+stages: 
+  - setup
+  - test
+
+  install: 
+    stage: setup
+    script: 
+      - npm ci

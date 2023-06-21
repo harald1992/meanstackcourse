@@ -5,4 +5,6 @@ export const environment: any = {
   baseUrl,
   appData: baseUrl + 'appdata',
   posts: baseUrl + 'posts',
+  login: baseUrl + 'login',
+  signUp: baseUrl + 'signup',
 };

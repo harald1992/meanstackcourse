@@ -1,4 +1,21 @@
 .header {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  background-color: grey;
+
+  a,
+  button {
+    background-color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid black;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .login {
+    margin-left: auto;
+  }
 }

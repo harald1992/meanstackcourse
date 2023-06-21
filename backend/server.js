@@ -2,7 +2,7 @@
 // const debug = require("debug")("node-angular");
 // const http = require("http");
 
-import app from "./backend/app.js";
+import app from "./app.js";
 import Debug from "debug";
 import http from "http";
 

@@ -6,12 +6,11 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
-import { ErrorUtilService } from '../services/general-services/error-util.service';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private errorUtilService: ErrorUtilService) {}
+  constructor() {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -21,8 +20,16 @@ export class TokenInterceptor implements HttpInterceptor {
       // do stuff
     }
 
+    // const modRequest = request.clone({
+    //   // headers: request.headers.append('credentials', 'include'),
+    //   withCredentials: true,
+    // });
+
     const modifiedRequest = request.clone({
-      headers: request.headers.append('Authorization', 'Bearer ' + 'token'),
+      headers: request.headers
+        .append('Authorization', 'Bearer ' + 'token')
+        .append('credentials', 'include'),
+      withCredentials: true,
     });
 
     return next.handle(request).pipe(

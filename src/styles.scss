@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "styles_base";
+@import "styles_helpers";
 
 .content-container {
   padding: 8px;
   max-width: 500px;
+
   margin: 0 auto;
+
+  min-height: 500px;
 }

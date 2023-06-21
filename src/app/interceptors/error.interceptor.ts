@@ -12,26 +12,28 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor() {}
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
+  }
+
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        let errorMsg = '';
-
-        if (error.error instanceof ErrorEvent) {
-          // client-side error
-          errorMsg = `Error: ${error.error.message}`;
-        } else {
-          // server-side error
-          errorMsg = `Error Status: ${error.status}\nMessage: ${error.message}`;
-        }
-
-        console.error(errorMsg);
-
-        return throwError(() => new Error(errorMsg));
-      })
-    );
+    return next.handle(request).pipe(catchError(this.handleError));
   }
 }

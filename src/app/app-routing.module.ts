@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { routerGuard } from './guards/router.guard';
 import { StandaloneComponent } from './generic components/standalone/standalone.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   { path: '', component: StandaloneComponent, title: 'Home' },
-
+  { path: 'login', component: LoginComponent, title: 'Login' },
   {
     path: 'posts',
     loadChildren: () =>
@@ -14,7 +15,6 @@ const routes: Routes = [
     title: 'Posts',
     canActivate: [routerGuard],
   },
-
   { path: '**', component: StandaloneComponent, title: 'Home' },
 ];
 
