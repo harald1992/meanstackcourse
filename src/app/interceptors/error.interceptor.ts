@@ -5,29 +5,33 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
+  HttpStatusCode,
 } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+
+const HTTP_STATUS_ABORTED = 0;
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor() {}
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
+  handleError(error: HttpErrorResponse): Observable<any> {
+    let errorMsg = '';
+    if (error.status === HTTP_STATUS_ABORTED) {
+      errorMsg = 'An client-side or network error occurred';
+    } else if (error.status === HttpStatusCode.InternalServerError) {
+      errorMsg = 'An internal server error occurred';
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `,
-        error.error
-      );
+      errorMsg = `Backend returned code ${error.status}`;
     }
+
+    console.error(errorMsg, ', body was: ', error.error);
+
     // Return an observable with a user-facing error message.
-    return throwError(
-      () => new Error('Something bad happened; please try again later.')
-    );
+    return throwError(() => {
+      return new Error(errorMsg);
+      // return error;
+    });
   }
 
   intercept(

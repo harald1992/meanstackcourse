@@ -7,9 +7,9 @@ describe('StandaloneComponent', () => {
   let fixture: ComponentFixture<StandaloneComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [StandaloneComponent]
-    });
+    // TestBed.configureTestingModule({
+    //   declarations: [StandaloneComponent]
+    // });
     fixture = TestBed.createComponent(StandaloneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoggedOutModalComponent } from './logged-out-modal.component';
+import { ModalComponent } from '../modal/modal.component';
 
 describe('LoggedOutModalComponent', () => {
   let component: LoggedOutModalComponent;
@@ -8,7 +9,7 @@ describe('LoggedOutModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoggedOutModalComponent]
+      declarations: [LoggedOutModalComponent, ModalComponent],
     });
     fixture = TestBed.createComponent(LoggedOutModalComponent);
     component = fixture.componentInstance;

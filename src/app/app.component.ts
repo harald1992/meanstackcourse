@@ -7,8 +7,6 @@ import { ModalContainerDirective } from './directives/modal-container.directive'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'meanstackcourse';
-
   @ViewChild(ModalContainerDirective, { static: false })
   modalContainer!: ModalContainerDirective;
 
