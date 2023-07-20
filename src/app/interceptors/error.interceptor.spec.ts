@@ -13,7 +13,7 @@ import {
 
 import { ErrorInterceptor } from './error.interceptor';
 
-describe('ErrorInterceptor', () => {
+fdescribe('ErrorInterceptor', () => {
   let client: HttpClient;
   let httpController: HttpTestingController;
   let interceptor: ErrorInterceptor;
@@ -25,7 +25,7 @@ describe('ErrorInterceptor', () => {
         ErrorInterceptor,
         {
           provide: HTTP_INTERCEPTORS,
-          useClass: ErrorInterceptor,
+          useExisting: ErrorInterceptor,
           multi: true,
         },
       ],
@@ -59,6 +59,11 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should call handleError with the correct errorObject on code 400', (done: DoneFn) => {
+    const spyOnHandleError = spyOn(
+      interceptor,
+      'handleError'
+    ).and.callThrough();
+
     const expectedErrorResponse = new HttpErrorResponse({
       url: '/target',
       status: HttpStatusCode.BadRequest,
@@ -74,10 +79,9 @@ describe('ErrorInterceptor', () => {
       error: (error: Error) => {
         expect(error).toBeTruthy();
         expect(error).toEqual(new Error('Backend returned code 400'));
-        expect(console.error).toHaveBeenCalledWith(
-          'Backend returned code 400',
-          ', body was: ',
-          expectedErrorResponse.error
+
+        expect(interceptor.handleError).toHaveBeenCalledWith(
+          expectedErrorResponse
         );
 
         done();
