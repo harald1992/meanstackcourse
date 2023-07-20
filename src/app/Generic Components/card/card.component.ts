@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input() card = { title: 'title', body: 'body content' };
+  @Input({ required: true }) card = { title: 'title', body: 'body content' };
 }

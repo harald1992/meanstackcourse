@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   AuthService,
@@ -11,11 +12,18 @@ import {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isLoginMode = false;
   isLoading = false;
 
+  // loginService.isLoggedIn$.pipe(take)
+  isLoggedIn$ = this.authService.isLoggedIn$.pipe(takeUntilDestroyed());
+
   constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn$.subscribe((data) => console.log(data)); // automatically unsubscribes ondestroy via the takeUntilDestroyed
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
