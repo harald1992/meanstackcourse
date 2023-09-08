@@ -1,0 +1,46 @@
+<div class="input-wrapper" [formGroup]="form">
+  <label class="input-wrapper__label" for="{{ inputData.name }}"
+    >{{ inputData.label }}:</label
+  >
+  <!-- <p>type = {{ inputData.type }}</p> -->
+
+  <div [ngSwitch]="inputData.type">
+    <ng-container *ngSwitchCase="'checkbox'">
+      <input
+        [type]="inputData.type"
+        [checked]="value"
+        [id]="inputData.name"
+        [formControlName]="inputData.name"
+        (change)="onCheckboxChange($event)"
+    /></ng-container>
+
+    <ng-container *ngSwitchCase="'radio'">
+      <div
+        class="d-flex flex-column"
+        *ngFor="let radioButton of inputData.radioButtons; let i = index"
+      >
+        <label [for]="inputData.name + '-' + radioButton.label">{{
+          radioButton.label
+        }}</label>
+
+        <input
+          type="radio"
+          [value]="radioButton.value"
+          [id]="inputData.name + '-' + radioButton.label"
+          [formControlName]="inputData.name"
+        />
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <!-- supports:   *ngSwitchCase="'text' || 'number' || 'textarea' || 'range' || 'date'"> -->
+      <input
+        [type]="inputData.type"
+        [id]="inputData.name"
+        [formControlName]="inputData.name"
+      />
+    </ng-container>
+  </div>
+
+  <p>value = {{ value }}</p>
+</div>

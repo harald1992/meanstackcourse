@@ -1,0 +1,21 @@
+<div class="padding-left-24 padding-right-24">
+  <ng-container
+    *ngIf="
+      formSpecNavigationItem.type === 'NAVIGATION_ABSTRACT';
+      else pageAbstract
+    "
+  >
+    <p class="margin-4 padding-0">{{ formSpecNavigationItem.label }}</p>
+
+    <ng-container *ngIf="formSpecNavigationItem.expanded">
+      <ng-container *ngFor="let navChild of formSpecNavigationItem.children">
+        <app-formspec-navigation-item
+          [formSpecNavigationItem]="navChild"
+        ></app-formspec-navigation-item>
+      </ng-container>
+    </ng-container>
+    ></ng-container
+  >
+</div>
+
+<ng-template #pageAbstract> </ng-template>

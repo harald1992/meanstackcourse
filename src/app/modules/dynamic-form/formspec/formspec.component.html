@@ -1,0 +1,16 @@
+<h1>FormSpec sandbox</h1>
+
+<div class="divide-horizontal-in-two">
+  <div class="navigation">
+    <ng-container *ngIf="formSpec; else loading">
+      <app-formspec-navigation-abstract
+        [item]="formSpec.navigation"
+      ></app-formspec-navigation-abstract>
+    </ng-container>
+  </div>
+  <div class="form">
+    <app-formspec-formpage></app-formspec-formpage>
+  </div>
+</div>
+
+<ng-template #loading>Loading</ng-template>

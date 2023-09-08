@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import { randomUUID } from "crypto";
 
 import cookieParser from "cookie-parser";
+import { log } from "console";
 
 const app = express();
 
@@ -94,4 +95,33 @@ app.get("*", (req, res) => {
   res.status(400).send();
 });
 
+function dostuff() {
+  let dutchKvk = fs.readFileSync(`${cwd()}/backend/dutch-kvk.json`, "utf8");
+  dutchKvk = JSON.parse(dutchKvk);
+  dutchKvk = dutchKvk.resources.translation.nl;
+
+  let formSpec = fs.readFileSync(`${cwd()}/backend/formspec-kvk.json`, "utf8");
+  formSpec = JSON.parse(formSpec);
+  formSpec = JSON.stringify(formSpec);
+
+  for (var attributename in dutchKvk) {
+    formSpec = formSpec.replaceAll(attributename, dutchKvk[attributename]);
+  }
+
+  // fs.writeFile(
+  //   `${cwd()}/backend/formspec-kvk-translated.json`,
+  //   formSpec,
+  //   (err) => {
+  //     if (err) {
+  //       // throw err;
+  //     } else {
+  //     }
+  //   }
+  // );
+}
+
 export default app;
+
+// setTimeout(() => {
+//   dostuff();
+// }, 1000);

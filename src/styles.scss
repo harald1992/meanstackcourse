@@ -2,6 +2,14 @@
 
 @import "styles_base";
 @import "styles_helpers";
+@import "styles_utils";
+
+.page-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
 
 .content-container {
   padding: 8px;
@@ -9,5 +17,5 @@
 
   margin: 0 auto;
 
-  min-height: 500px;
+  min-height: calc(100vh - 100px);
 }

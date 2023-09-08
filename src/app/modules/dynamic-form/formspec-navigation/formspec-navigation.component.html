@@ -1,0 +1,13 @@
+<!-- <div class="padding-left-24 padding-right-24"> -->
+<ng-container *ngIf="item.type === 'NAVIGATION_ABSTRACT'; else pageAbstract">
+  <app-formspec-navigation-abstract
+    [item]="asNavigationAbstract(item)"
+  ></app-formspec-navigation-abstract>
+</ng-container>
+<!-- </div> -->
+
+<ng-template #pageAbstract>
+  <app-formspec-page-abstract
+    [item]="asPageAbstract(item)"
+  ></app-formspec-page-abstract>
+</ng-template>

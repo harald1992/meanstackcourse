@@ -1,0 +1,9 @@
+<button class="navigation-abstract" (click)="toggleExpand()">
+  <p class="margin-4 padding-0">{{ item.label }}</p>
+</button>
+<ng-container *ngIf="item.expanded">
+  <!-- <p>{{ item.children[0] | json }}</p> -->
+  <ng-container *ngFor="let navChild of item.children">
+    <app-formspec-navigation [item]="navChild"></app-formspec-navigation>
+  </ng-container>
+</ng-container>

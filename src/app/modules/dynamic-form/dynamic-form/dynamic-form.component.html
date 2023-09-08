@@ -1,1 +1,30 @@
-<p>dynamic-form works!</p>
+<!-- Using Reactive Forms instead of template forms, usually the best way so it uses reactive programming -->
+
+<!-- <p>{{ jsonFormData | json }}</p> -->
+<h1>Single Form</h1>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form">
+  <div *ngFor="let control of jsonFormData?.controls">
+    <!-- [control]="myForm.get(control.name)" -->
+    <app-input-wrapper
+      [form]="myForm"
+      [inputData]="control"
+    ></app-input-wrapper>
+
+    <!-- <div class="d-flex flex-row align-center" style="gap: 4px">
+      <label for="">{{ control.label }}</label>
+      <input
+        [type]="control.type"
+        [formControlName]="control.name"
+        [value]="control.value"
+      />
+      <span>value: {{ myForm.get(control.name)?.value }}</span>
+      <span *ngIf="myForm.get(control.name)?.errors"
+        >Errors: {{ myForm.get(control.name)?.errors | json }}</span
+      >
+    </div> -->
+  </div>
+
+  <button [disabled]="!myForm.valid && myForm.touched" type="submit">
+    Submit
+  </button>
+</form>

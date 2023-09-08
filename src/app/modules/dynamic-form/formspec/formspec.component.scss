@@ -1,0 +1,14 @@
+.divide-horizontal-in-two {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  .navigation {
+    background-color: grey;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
