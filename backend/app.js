@@ -95,7 +95,7 @@ app.get("*", (req, res) => {
   res.status(400).send();
 });
 
-function dostuff() {
+function translateJson() {
   let dutchKvk = fs.readFileSync(`${cwd()}/backend/dutch-kvk.json`, "utf8");
   dutchKvk = JSON.parse(dutchKvk);
   dutchKvk = dutchKvk.resources.translation.nl;
@@ -123,5 +123,5 @@ function dostuff() {
 export default app;
 
 // setTimeout(() => {
-//   dostuff();
+//   translateJson();
 // }, 1000);
